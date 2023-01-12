@@ -1,3 +1,5 @@
 const server = require('./webServer.js');
 
-server.init();
+const port = 8080;
+
+server.init(port);

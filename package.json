@@ -1,0 +1,24 @@
+{
+  "name": "race-strategy-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd ./src/server && nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UP2020033/Race-Strategy-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UP2020033/Race-Strategy-App/issues"
+  },
+  "homepage": "https://github.com/UP2020033/Race-Strategy-App#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}

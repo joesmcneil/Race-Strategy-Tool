@@ -6,7 +6,7 @@ const app = express();
 
 function init(port, err) {
 
-    app.use(express.stastic('../client/'));
+    app.use(express.static('../client/'));
 
     app.listen(port);
     if (!err) {
