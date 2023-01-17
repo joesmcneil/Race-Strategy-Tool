@@ -3,7 +3,7 @@ const next = require('next');
 const server = express();
 server.use(express.json());
 
-function Init() {
+function init() {
 
     const port = 8080;
     const dev = process.env.NODE_ENV !== 'production';
@@ -24,5 +24,5 @@ function Init() {
 
 module.exports = {
     App: server,
-    Init,
+    init,
 };

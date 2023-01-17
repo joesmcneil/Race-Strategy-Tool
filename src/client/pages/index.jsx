@@ -1,5 +1,12 @@
+import Canvas from '../components/Canvas'
+
 function HomePage() {
-    return (<div>Welcome to Yo</div>)
+    return (
+    <div>
+        <h1>Hi</h1>
+        <Canvas/>
+    </div>
+    )
 }
 
 export default HomePage
