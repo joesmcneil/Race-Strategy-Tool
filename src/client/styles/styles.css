@@ -1,11 +1,27 @@
-  body {
-    background: black;
-  }
-  
-  h1 {
-    color: red;
-  }
+ 
+@media (min-width: 1920px) and (max-width: 2560px) {
 
-  text {
-    color: white;
-  }
+    body {
+      background: black;
+    }
+    
+    h1 {
+      color: red;
+    }
+
+    .mainContainer {
+      display: flex;
+    }
+
+    .canvasContainer {
+      display: flex;
+      margin: auto;
+      height: 1000px;
+      width: 1000px;
+    }
+
+    canvas {
+      margin: auto;
+      border: 1px solid white;
+    }
+}

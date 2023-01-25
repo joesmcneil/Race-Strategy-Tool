@@ -1,38 +1,38 @@
 import React, { useState, useRef, useEffect } from 'react'
+import {cover, contain} from 'intrinsic-scale';
 
 const Canvas = props => {
 
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
-    const ref = useRef(null);
-
-    console.log(ref);
-
     const canvasRef = useRef(null)
 
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
+
     const draw = ctx => {
-        ctx.fillStyle = 'white'
-        ctx.beginPath()
-        ctx.arc(50, 100, 20, 0, 2*Math.PI)
-        ctx.fill()
+
+        // track
+        ctx.beginPath();
+        ctx.arc(50, 100, 20, 0, 2 * Math.PI);
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.stroke();
       }
 
     useEffect(() => {
 
-        console.log(ref);
-        setWidth(ref.clientWidth);
-
         const canvas = canvasRef.current;
-        const context = canvas.getContext('2d')
+        const context = canvas.getContext('2d');
 
-        console.log(context)
-        console.log(canvas)
+        setHeight(canvasRef.current.parentElement.offsetHeight);
+        setWidth(canvasRef.current.parentElement.offsetWidth);
 
-        draw(context)
-    }, [draw])
+        draw(context);
+    }, [draw, height, width]);
 
-    return <canvas ref={canvasRef} {...props}/>
+    return <canvas ref={canvasRef} height={height} width={width} {...props}/>
 
 }
+
+
 
 export default Canvas
