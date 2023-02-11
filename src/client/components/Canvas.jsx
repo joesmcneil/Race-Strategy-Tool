@@ -11,8 +11,6 @@ const Canvas = props => {
     // useEffect called on mount to update time by 5 every 16 ms.
     // code initially in component code rather than on mount, meaning interval was being reset therefore resetting the value of time.
 
-    let racers = [{}]
-
     useEffect(() => {
         setInterval( () => {
             setTime(time => time + 5)

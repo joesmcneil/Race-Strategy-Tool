@@ -1,5 +1,5 @@
 import Canvas from '../components/Canvas'
-import Overlay from '../components/Overlay'
+import ConfigOverlay from '../components/ConfigOverlay'
 
 function HomePage() {
 
@@ -10,7 +10,7 @@ function HomePage() {
         <div className="canvasContainer">
             <Canvas/>    
         </div>
-        <Overlay/>
+        <ConfigOverlay/>
     </div>
     )
 }
