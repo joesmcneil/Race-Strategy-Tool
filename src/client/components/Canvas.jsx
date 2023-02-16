@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-const Canvas = props => {
+const Canvas = ({ racers }) => {
 
     const canvasRef = useRef(null);
     const [height, setHeight] = useState(0);
@@ -64,7 +64,6 @@ const Canvas = props => {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
         drawTrack(ctx);
-        drawRacer(ctx, 'pink');
     }
 
     useEffect(() => {
@@ -77,7 +76,7 @@ const Canvas = props => {
         draw(context);
     }, [draw, height, width, time]);
 
-    return <canvas ref={canvasRef} height={height} width={width} {...props}/>
+    return <canvas ref={canvasRef} height={height} width={width}/>
 }
 
 export default Canvas

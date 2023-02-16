@@ -1,16 +1,17 @@
 import Canvas from '../components/Canvas'
 import ConfigOverlay from '../components/ConfigOverlay'
+import React, { useState } from 'react';
 
 function HomePage() {
 
-    let racers = [];
+    const [racers, setRacers] = useState([]);
 
     return (
     <div className="mainContainer">
         <div className="canvasContainer">
-            <Canvas/>    
+            <Canvas racers={racers}/>    
         </div>
-        <ConfigOverlay/>
+        <ConfigOverlay setRacerArr={setRacers}/>
     </div>
     )
 }
