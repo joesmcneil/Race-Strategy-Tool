@@ -15,7 +15,7 @@ const Canvas = ({ racers }) => {
         setInterval( () => {
             setTime(time => time + 5)
         }, 16)
-    }, [])
+    }, []);
 
     const drawTrack = ctx => {
         // Track
@@ -57,13 +57,22 @@ const Canvas = ({ racers }) => {
         ctx.beginPath();
         ctx.arc(x, y, 35, 0, 2 * Math.PI);
         ctx.fillStyle = colour;
-        ctx.fill();   
+        ctx.fill();
     }
 
     const draw = ctx => {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
+        // racers.forEach(drawRacer(ctx, racers.colour))
         drawTrack(ctx);
+        try {
+            for (const racer of racers) {
+                drawRacer(ctx, racer.racerColour);
+                console.log(racer.racerColour);
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     useEffect(() => {
@@ -74,9 +83,11 @@ const Canvas = ({ racers }) => {
         setWidth(canvasRef.current.parentElement.offsetWidth);
 
         draw(context);
-    }, [draw, height, width, time]);
+    }, [draw, height, width, time, racers]);
 
-    return <canvas ref={canvasRef} height={height} width={width}/>
+    return (
+    <canvas ref={canvasRef} height={height} width={width}/>
+    )
 }
 
 export default Canvas

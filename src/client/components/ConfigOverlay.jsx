@@ -17,6 +17,16 @@ const ConfigOverlay = ({ setRacerArr }) => {
   const [racersArr, setRacersArr] = useState([]);
   console.log(racersArr);
 
+  const showTrack = (props) => {
+
+  }
+
+  const clearInputs = () => {
+    aliasRef.current.value = '';
+    numberRef.current.value = '';
+    colourRef.current.value = '';
+  }
+
   const addRacer = () => 
   {
     const racer = {
@@ -25,6 +35,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
       racerColour: colourRef.current.value
     }
     setRacersArr([...racersArr, racer]);
+    clearInputs();
 
     console.log(racersArr);
   }
