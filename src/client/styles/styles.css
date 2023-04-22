@@ -49,19 +49,45 @@
       width: 1000px;
     }
 
-    .labelFormElem {
+    #configTitle {
+      background-color:black;
       color: white;
-      margin: auto;
+      text-align: center;
+    }
+
+    #trackConfig {
+      background-color:black;
+      color: white;
+      text-align: center;
     }
 
     .inputFormElem {
-      color: black;
+      background-color:black;
+      color: white;
+      margin-left: 225px;
+      width: 200px;
+      height: 30px;
+      margin-bottom: 25px;
+      font-size: 25px;
+      border: 4px solid;
+      border-color: white;
+      text-align: center;
     }
 
     input {
-      display: block;
-      box-sizing: border-box;
       margin-top: 5px;
       margin-bottom: 5px;
     }
+
+    #racerColour {
+      margin-left: 425px;
+    }
+
+    .addConfigButton {
+      width: 208px;
+      height: 34px;
+      font-size: 20px;
+      margin-left: 225px;
+    }
+
 }

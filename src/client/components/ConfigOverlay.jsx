@@ -12,6 +12,8 @@ const ConfigOverlay = ({ setRacerArr }) => {
   const aliasRef = useRef();
   const numberRef = useRef();
   const colourRef = useRef();
+  const trackLengthRef = useRef();
+  const numberOfLaps = useRef();
 
 
   const [racersArr, setRacersArr] = useState([]);
@@ -19,6 +21,12 @@ const ConfigOverlay = ({ setRacerArr }) => {
 
   const showTrack = (props) => {
 
+  }
+
+  const clearDefaultInputs = (input) => {
+    if (input.value === input.defaultValue) {
+      input.value = '';
+    }
   }
 
   const clearInputs = () => {
@@ -50,17 +58,22 @@ const ConfigOverlay = ({ setRacerArr }) => {
     <div className={`overlay ${isOpen ? 'hide' : ''}`}>
       {
     <form className="raceForm">
-    <label htmlFor="alias" className="labelFormElem">Racer alias</label>
-    <input type="text" id="alias" className="inputFormElem" ref={aliasRef}></input>
-    <label htmlFor="number"className="labelFormElem">Racer number</label>
-    <input type="text" id="racerNumber" className="inputFormElem" ref={numberRef}></input>
-    <label htmlFor="colour"className="labelFormElem">Racer Colour</label>
-    <input type="text" id="racerColour" className="inputFormElem" ref={colourRef}></input>
+    <p id="configTitle">Configuration</p>
+    <p id="trackConfig">Track Config</p>
+    <div className="trackDetails">
+    <input type="text" defaultValue="Track Length" id="trackLength" className="inputFormElem" ref={trackLengthRef} onClick="clearDefaultInputs"></input>
+    <input type="text" defaultValue="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLaps}></input>
+    </div>
+    <div className="racerDetails">
+    <input type="text" defaultValue="Racer Alias" id="alias" className="inputFormElem" ref={aliasRef}></input>
+    <input type="text" defaultValue="Racer Number" id="racerNumber" className="inputFormElem" ref={numberRef}></input>
+    <input type="text" defaultValue="Racer Colour" id="racerColour" className="inputFormElem" ref={colourRef}></input>
+    </div>
 
-    <input type ="button" value="Add racer" onClick={() => addRacer()}></input>
-
-    <input type="button" value="Submit" onClick={submitConfig}></input>
-
+    <div className="configButtons">
+    <input type ="button" className="addConfigButton" defaultValue="Add racer" onClick={() => addRacer()}></input>
+    <input type="button" className="addConfigButton" defaultValue="Submit" onClick={submitConfig}></input>
+    </div>
     </form>
         }
     </div>
