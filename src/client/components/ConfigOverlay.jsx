@@ -23,13 +23,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
 
   }
 
-  const clearDefaultInputs = (input) => {
-    if (input.value === input.defaultValue) {
-      input.value = '';
-    }
-  }
-
-  const clearInputs = () => {
+  const clearRacerInputs = () => {
     aliasRef.current.value = '';
     numberRef.current.value = '';
     colourRef.current.value = '';
@@ -43,7 +37,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
       racerColour: colourRef.current.value
     }
     setRacersArr([...racersArr, racer]);
-    clearInputs();
+    clearRacerInputs();
 
     console.log(racersArr);
   }
@@ -58,21 +52,22 @@ const ConfigOverlay = ({ setRacerArr }) => {
     <div className={`overlay ${isOpen ? 'hide' : ''}`}>
       {
     <form className="raceForm">
-    <p id="configTitle">Configuration</p>
-    <p id="trackConfig">Track Config</p>
+    <p className="configTitles">Configuration</p>
+    <p className="configTitles" id="trackConfig">Track Config</p>
     <div className="trackDetails">
-    <input type="text" defaultValue="Track Length" id="trackLength" className="inputFormElem" ref={trackLengthRef} onClick="clearDefaultInputs"></input>
-    <input type="text" defaultValue="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLaps}></input>
+    <input type="text" placeholder="Track Length" id="trackLength" className="inputFormElem" ref={trackLengthRef}></input>
+    <input type="text" placeholder="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLaps}></input>
     </div>
     <div className="racerDetails">
-    <input type="text" defaultValue="Racer Alias" id="alias" className="inputFormElem" ref={aliasRef}></input>
-    <input type="text" defaultValue="Racer Number" id="racerNumber" className="inputFormElem" ref={numberRef}></input>
-    <input type="text" defaultValue="Racer Colour" id="racerColour" className="inputFormElem" ref={colourRef}></input>
+    <p className="configTitles">Racer Config</p>
+    <input type="text" placeholder="Racer Alias" id="alias" className="inputFormElem" ref={aliasRef}></input>
+    <input type="text" placeholder="Racer Number" id="racerNumber" className="inputFormElem" ref={numberRef}></input>
+    <input type="text" placeholder="Racer Colour" id="racerColour" className="inputFormElem" ref={colourRef}></input>
     </div>
 
     <div className="configButtons">
-    <input type ="button" className="addConfigButton" defaultValue="Add racer" onClick={() => addRacer()}></input>
-    <input type="button" className="addConfigButton" defaultValue="Submit" onClick={submitConfig}></input>
+    <input type ="button" value="Add Racer" className="addConfigButton" onClick={() => addRacer()}></input>
+    <input type="button" value="Submit" className="addConfigButton" onClick={submitConfig}></input>
     </div>
     </form>
         }
