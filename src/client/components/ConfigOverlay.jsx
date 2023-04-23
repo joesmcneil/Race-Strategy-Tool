@@ -13,10 +13,11 @@ const ConfigOverlay = ({ setRacerArr }) => {
   const numberRef = useRef();
   const colourRef = useRef();
   const trackLengthRef = useRef();
-  const numberOfLaps = useRef();
+  const numberOfLapsRef = useRef();
 
 
   const [racersArr, setRacersArr] = useState([]);
+
   console.log(racersArr);
 
   const showTrack = (props) => {
@@ -44,19 +45,23 @@ const ConfigOverlay = ({ setRacerArr }) => {
 
   const submitConfig = () => {
     setRacerArr(racersArr);
+    setSetLapCount(lapCount);
+    setTrackLength(trackLength);
     setIsOpen(!isOpen);
     console.log(isOpen);
+    console.log(trackLengthRef.current.value);
+    console.log(numberOfLapsRef.current.value);
   }
 
   return (
     <div className={`overlay ${isOpen ? 'hide' : ''}`}>
       {
     <form className="raceForm">
-    <p className="configTitles">Configuration</p>
+    <p className="configTitles" id="preRaceConfig">Pre-race Configuration</p>
     <p className="configTitles" id="trackConfig">Track Config</p>
     <div className="trackDetails">
     <input type="text" placeholder="Track Length" id="trackLength" className="inputFormElem" ref={trackLengthRef}></input>
-    <input type="text" placeholder="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLaps}></input>
+    <input type="text" placeholder="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLapsRef}></input>
     </div>
     <div className="racerDetails">
     <p className="configTitles">Racer Config</p>
