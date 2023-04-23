@@ -1,26 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react'
 
+let racer = {
+    velocity: 20,
+    pos: 0,
+    x: 0,
+    y: 0,
+}
+
+const trackRadius = 2000; // m
+const trackCircumference = 2 * Math.PI * trackRadius; // m
+
 const Canvas = ({ racers }) => {
-
     const canvasRef = useRef(null);
-    const [height, setHeight] = useState(0);
-    const [width, setWidth] = useState(0);
     const [time, setTime]= useState(0);
-    const radius = 480;
+    const height = 1000;
+    const width = 1000;
 
-    // useEffect called on mount to update time by 5 every 16 ms.
-    // code initially in component code rather than on mount, meaning interval was being reset therefore resetting the value of time.
+    // The interval at which the track rerenders
+    const timeStep = 16.6; // ms
 
-    useEffect(() => {
-        setInterval( () => {
-            setTime(time => time + 5)
-        }, 16)
-    }, []);
+    // The initial racer position
+    let racerPosition = 0;
 
     const drawTrack = ctx => {
         // Track
         ctx.beginPath();
-        ctx.arc(500, 500, radius, 0, 2 * Math.PI);
+        ctx.arc(500, 500, trackRadius, 0, 2 * Math.PI);
         ctx.strokeStyle = 'lightgreen';
         ctx.lineWidth = 15;
         ctx.stroke();
@@ -33,40 +38,30 @@ const Canvas = ({ racers }) => {
         ctx.stroke();
     }
 
-    // Setting a manual speed for the racer;
-    const racerSpeed = 100;
-
-    // The interval at which the track rerenders
-    const raceTick = 10;
-
-    // The initial racer position
-    let racerPosition = 0;
-
-    const distanceTravelledEachUpdate = (racerSpeed * 1000 / 60 / 60) * (raceTick / 1000);
-
-    function drawRacer (ctx, colour) {
-
-        const circumference = 2 * Math.PI * radius;
-        const position = time % circumference;
-        const degrees = position * 360 / circumference;
+    function updateRacer () {
+        const angularVelocityRad = racer.velocity / trackRadius;
+        racer.pos += angularVelocityRad;
+        const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
 
         // Note that the addition of the radius and (35 + 2) (radius of the car)
         // is used as an offset to center the car on the track assuming the track
         // is a circle and the center of the circle is at w/2, h/2.. This could be
-        // rectified by adding an offset of the origin of the circle 
-        const offset = radius + (35 / 2);
-        const x = (radius * Math.sin(Math.PI * 2 * degrees / 360)) + offset;
-        const y = (radius * Math.cos(Math.PI * 2 * degrees / 360)) + offset;
+        // rectified by adding an offset of the origin of the circle
+        const offset = trackRadius + (35 / 2);
+        racer.x = (trackRadius * Math.sin(Math.PI * 2 * degrees / 360)) + offset;
+        racer.y = (trackRadius * Math.cos(Math.PI * 2 * degrees / 360)) + offset;
+    }
 
+    function drawRacer (ctx, colour) {
         ctx.beginPath();
         ctx.moveTo(canvasRef.current.width / 2, canvasRef.current.height / 2);
-        ctx.lineTo(x, y);
+        ctx.lineTo(racer.x, racer.y);
         ctx.lineWidth = 5;
         ctx.strokeStyle = colour;
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(x, y, 35, 0, 2 * Math.PI);
+        ctx.arc(racer.x, racer.y, 35, 0, 2 * Math.PI);
         ctx.fillStyle = colour;
         ctx.fill();
     }
@@ -78,6 +73,7 @@ const Canvas = ({ racers }) => {
         drawTrack(ctx);
         try {
             for (const racer of racers) {
+                updateRacer();
                 drawRacer(ctx, racer.racerColour);
                 console.log(racer.racerColour);
             }
@@ -87,17 +83,20 @@ const Canvas = ({ racers }) => {
     }
 
     useEffect(() => {
+        setInterval( () => {
+            setTime(time => time + 1)
+        }, timeStep)
+    }, []);
+
+    useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
 
-        setHeight(canvasRef.current.parentElement.offsetHeight);
-        setWidth(canvasRef.current.parentElement.offsetWidth);
-
         draw(context);
-    }, [draw, height, width, time, racers]);
+    }, [time, racers]);
 
     return (
-    <canvas ref={canvasRef} height={height} width={width}/>
+        <canvas ref={canvasRef} height={height} width={width}/>
     )
 }
 
