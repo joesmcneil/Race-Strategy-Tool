@@ -15,8 +15,8 @@ const ConfigOverlay = ({ setRacerArr }) => {
   const trackLengthRef = useRef();
   const numberOfLapsRef = useRef();
 
-
   const [racersArr, setRacersArr] = useState([]);
+
 
   console.log(racersArr);
 
@@ -45,8 +45,6 @@ const ConfigOverlay = ({ setRacerArr }) => {
 
   const submitConfig = () => {
     setRacerArr(racersArr);
-    setSetLapCount(lapCount);
-    setTrackLength(trackLength);
     setIsOpen(!isOpen);
     console.log(isOpen);
     console.log(trackLengthRef.current.value);
@@ -60,7 +58,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
     <p className="configTitles" id="preRaceConfig">Pre-race Configuration</p>
     <p className="configTitles" id="trackConfig">Track Config</p>
     <div className="trackDetails">
-    <input type="text" placeholder="Track Length" id="trackLength" className="inputFormElem" ref={trackLengthRef}></input>
+    <input type="text" placeholder="Track Length (KM)" id="trackLength" className="inputFormElem" ref={trackLengthRef}></input>
     <input type="text" placeholder="Number of Laps" id="numberOfLaps" className="inputFormElem" ref={numberOfLapsRef}></input>
     </div>
     <div className="racerDetails">

@@ -33,6 +33,17 @@ const Canvas = ({ racers }) => {
         ctx.stroke();
     }
 
+    // Setting a manual speed for the racer;
+    const racerSpeed = 100;
+
+    // The interval at which the track rerenders
+    const raceTick = 10;
+
+    // The initial racer position
+    let racerPosition = 0;
+
+    const distanceTravelledEachUpdate = (racerSpeed * 1000 / 60 / 60) * (raceTick / 1000);
+
     function drawRacer (ctx, colour) {
 
         const circumference = 2 * Math.PI * radius;
