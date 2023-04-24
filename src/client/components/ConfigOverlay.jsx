@@ -2,7 +2,6 @@
 import React, { useState, useRef } from 'react';
 
 const ConfigOverlay = ({ setRacerArr }) => {
-
   // isOpen determines the state of the overlay, the state is updated once the 'submit' button is clicked and the class of the containing is then updated.
 
   const [isOpen, setIsOpen] = useState(false);
@@ -28,20 +27,19 @@ const ConfigOverlay = ({ setRacerArr }) => {
     aliasRef.current.value = '';
     numberRef.current.value = '';
     colourRef.current.value = '';
-  }
+  };
 
-  const addRacer = () => 
-  {
+  const addRacer = () => {
     const racer = {
       racerAlias: aliasRef.current.value,
       racerNumber: numberRef.current.value,
-      racerColour: colourRef.current.value
-    }
+      racerColour: colourRef.current.value,
+    };
     setRacersArr([...racersArr, racer]);
     clearRacerInputs();
 
     console.log(racersArr);
-  }
+  };
 
   const submitConfig = () => {
     setRacerArr(racersArr);
@@ -49,7 +47,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
     console.log(isOpen);
     console.log(trackLengthRef.current.value);
     console.log(numberOfLapsRef.current.value);
-  }
+  };
 
   return (
     <div className={`overlay ${isOpen ? 'hide' : ''}`}>
@@ -75,9 +73,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
     </form>
         }
     </div>
-    
   );
-  
 };
 
 export default ConfigOverlay;
