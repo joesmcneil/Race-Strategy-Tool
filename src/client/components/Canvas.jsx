@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 
-let racer = {
-  velocity: 1,
+const racer = {
+  velocity: 10,
   pos: 0,
   x: 0,
   y: 0,
 };
 
-const trackRadius = 2000; // m
+const trackRadius = 1000; // m
 const trackCircumference = 2 * Math.PI * trackRadius; // m
 
 const Canvas = ({ racers }) => {
-  const canvasRef = useRef(null);
-  const [time, setTime] = useState(0);
+  const canvasRef = React.useRef(null);
+  const [time, setTime] = React.useState(0);
   const height = 1000;
   const width = 1000;
 
@@ -20,7 +20,7 @@ const Canvas = ({ racers }) => {
   const timeStep = 16.6; // ms
 
   // The initial racer position
-  let racerPosition = 0;
+  // let racerPosition = 0;
 
   const drawTrack = ctx => {
     // Track
@@ -41,7 +41,7 @@ const Canvas = ({ racers }) => {
   function updateRacer() {
     const angularVelocityRad = racer.velocity / trackRadius;
     racer.pos += angularVelocityRad;
-    const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
+    // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
     const angle = racer.pos % (2 * Math.PI);
 
     // Note that the addition of the radius and (35 + 2) (radius of the car)
@@ -49,9 +49,10 @@ const Canvas = ({ racers }) => {
     // is a circle and the center of the circle is at w/2, h/2.. This could be
     // rectified by adding an offset of the origin of the circle
     const offset = trackRadius + (35 / 2);
-    racer.x = (trackRadius * Math.sin(angle)) + offset;
-    racer.y = (trackRadius * Math.cos(angle)) + offset;
+    racer.x = (trackRadius * Math.cos(angle)) + offset;
+    racer.y = (trackRadius * Math.sin(angle)) + offset;
     console.log(angle);
+    console.log(trackCircumference);
   }
 
   function drawRacer(ctx, colour) {
@@ -84,7 +85,7 @@ const Canvas = ({ racers }) => {
   };
 
   useEffect(() => {
-    setInterval( () => {
+    setInterval(() => {
       setTime(time => time + 1);
     }, timeStep);
   }, []);

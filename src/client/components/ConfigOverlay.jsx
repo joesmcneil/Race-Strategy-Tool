@@ -4,24 +4,20 @@ import React, { useState, useRef } from 'react';
 const ConfigOverlay = ({ setRacerArr }) => {
   // isOpen determines the state of the overlay, the state is updated once the 'submit' button is clicked and the class of the containing is then updated.
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   // The variables below are used to store the values that have been inputted into the race config input fields using the useRef hook.
 
-  const aliasRef = useRef();
-  const numberRef = useRef();
-  const colourRef = useRef();
-  const trackLengthRef = useRef();
-  const numberOfLapsRef = useRef();
+  const aliasRef = React.useRef();
+  const numberRef = React.useRef();
+  const colourRef = React.useRef();
+  const trackLengthRef = React.useRef();
+  const numberOfLapsRef = React.useRef();
 
-  const [racersArr, setRacersArr] = useState([]);
+  const [racersArr, setRacersArr] = React.useState([]);
 
 
   console.log(racersArr);
-
-  const showTrack = (props) => {
-
-  }
 
   const clearRacerInputs = () => {
     aliasRef.current.value = '';
