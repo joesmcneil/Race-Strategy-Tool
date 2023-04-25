@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+// Static racer object for testing purposes
 const racer = {
-  velocity: 10,
+  velocity: 5,
   pos: 0,
   x: 0,
   y: 0,
 };
 
-const trackRadius = 1000; // m
-const trackCircumference = 2 * Math.PI * trackRadius; // m
+const trackCircumference = 3000; // meters
+const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = ({ racers }) => {
   const canvasRef = React.useRef(null);
@@ -52,7 +53,6 @@ const Canvas = ({ racers }) => {
     racer.x = (trackRadius * Math.cos(angle)) + offset;
     racer.y = (trackRadius * Math.sin(angle)) + offset;
     console.log(angle);
-    console.log(trackCircumference);
   }
 
   function drawRacer(ctx, colour) {
@@ -72,7 +72,6 @@ const Canvas = ({ racers }) => {
   const draw = ctx => {
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-    // racers.forEach(drawRacer(ctx, racers.colour))
     drawTrack(ctx);
     try {
       for (const racer of racers) {
@@ -84,6 +83,7 @@ const Canvas = ({ racers }) => {
     }
   };
 
+  // Redraw the canvas when the time or racers variables are updated
   useEffect(() => {
     setInterval(() => {
       setTime(time => time + 1);
