@@ -12,6 +12,14 @@ const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = (props) => {
+  for (const racer of props.racers) {
+    props.setRacerInfo([...props.liveRacerInfo, {
+      position: 0,
+      alias: racer.alias,
+      timeDelta: 0,
+    }]);
+  }
+
   const canvasRef = React.useRef(null);
   const [time, setTime] = React.useState(0);
   const height = 1000;

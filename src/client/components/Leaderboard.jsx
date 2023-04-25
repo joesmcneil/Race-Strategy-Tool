@@ -2,11 +2,12 @@ import LeaderboardItem from "./LeaderboardItem";
 
 const Leaderboard = (props) => {
   const leaderboardArr = [];
-  for (const data of props.dataArr) {
+  for (const racer of props.dataArr) {
     leaderboardArr.push(
         <LeaderboardItem
-          alias = {data.alias}
-          colour = {data.color}
+          alias = {racer.alias}
+          position = {racer.position}
+          timeDelta = {racer.timeDelta}
         />,
     );
   }
