@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Static racer object for testing purposes
 const racer = {
@@ -26,14 +26,14 @@ const Canvas = ({ racers }) => {
   const drawTrack = ctx => {
     // Track
     ctx.beginPath();
-    ctx.arc(500, 500, trackRadius, 0, 2 * Math.PI);
+    ctx.arc(width/2, height/2, trackRadius, 0, 2 * Math.PI);
     ctx.strokeStyle = 'lightgreen';
     ctx.lineWidth = 15;
     ctx.stroke();
 
     // Timing circle
     ctx.beginPath();
-    ctx.arc(500, 500, 200, 0, 2 * Math.PI);
+    ctx.arc(width/2, width/2, 200, 0, 2 * Math.PI);
     ctx.strokeStyle = 'lightblue';
     ctx.lineWidth = 10;
     ctx.stroke();
