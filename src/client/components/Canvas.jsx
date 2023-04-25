@@ -11,7 +11,7 @@ const racer = {
 const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
-const Canvas = ({ racers }) => {
+const Canvas = (props) => {
   const canvasRef = React.useRef(null);
   const [time, setTime] = React.useState(0);
   const height = 1000;
@@ -70,16 +70,18 @@ const Canvas = ({ racers }) => {
   }
 
   const draw = ctx => {
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    if (props.status === true) {
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-    drawTrack(ctx);
-    try {
-      for (const racer of racers) {
-        updateRacer();
-        drawRacer(ctx, racer.racerColour);
+      drawTrack(ctx);
+      try {
+        for (const racer of props.racers) {
+          updateRacer();
+          drawRacer(ctx, racer.racerColour);
+        }
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error(e);
     }
   };
 
@@ -95,7 +97,7 @@ const Canvas = ({ racers }) => {
     const context = canvas.getContext('2d');
 
     draw(context);
-  }, [time, racers]);
+  }, [time, props.racers]);
 
   return (
     <canvas ref={canvasRef} height={height} width={width}/>
