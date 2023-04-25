@@ -12,13 +12,23 @@ const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = (props) => {
-  for (const racer of props.racers) {
-    props.setRacerInfo([...props.liveRacerInfo, {
-      position: 0,
-      alias: racer.alias,
-      timeDelta: 0,
-    }]);
-  }
+  useEffect(() => {
+    if (props.status === true) {
+      console.log(props.racers);
+      const tempArray = [];
+      for (const racer of props.racers) {
+        console.log(racer);
+        tempArray.push({
+          position: 0,
+          alias: racer.racerAlias,
+          timeDelta: 0,
+        });
+        // console.log(props.liveRacerInfo);
+      }
+      props.setRacerInfo(tempArray);
+      // console.log(props.liveRacerInfo);
+    }
+  }, [props.racers, props.status]);
 
   const canvasRef = React.useRef(null);
   const [time, setTime] = React.useState(0);

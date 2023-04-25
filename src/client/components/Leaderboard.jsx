@@ -1,18 +1,47 @@
+import { useEffect, useState } from "react";
 import LeaderboardItem from "./LeaderboardItem";
 
 const Leaderboard = (props) => {
-  const leaderboardArr = [];
-  for (const racer of props.dataArr) {
-    leaderboardArr.push(
-        <LeaderboardItem
-          alias = {racer.alias}
-          position = {racer.position}
-          timeDelta = {racer.timeDelta}
-        />,
-    );
-  }
+  const [leaderboardArr, setLeaderboardArr] = useState([]);
+
+  useEffect(() => {
+    if (props.status === true) {
+      console.log(props.dataArr);
+      const tempArray = [];
+      tempArray.push(
+        <div class="child"> {/** child of outer flexbox in leaderboard component */}
+          <div class="parent"> {/** el row */}
+            <div class="child"> {/** el data */}
+              Position
+            </div>
+            <div class="child">
+              Alias
+            </div>
+            <div class="child">
+              Time Delta
+            </div>
+          </div>
+        </div>,
+      );
+
+      for (const racer of props.dataArr) {
+        console.log(racer);
+        console.log(leaderboardArr);
+        tempArray.push(
+            <LeaderboardItem
+              alias = {racer.alias}
+              position = {racer.position}
+              timeDelta = {racer.timeDelta}
+            />,
+        );
+        console.log(leaderboardArr);
+      }
+      setLeaderboardArr(tempArray);
+    }
+  }, [props.status, props.dataArr]);
+
   return (
-    <div class="parent">
+    <div className="parent">
         {leaderboardArr}
     </div>
   );
