@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export class Racer {
-  constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position) {
+  constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position, lapNo) {
     this.x = x;
     this.y = y;
     this.angularVelocity = angularVelocity;
@@ -12,6 +12,8 @@ export class Racer {
     this.interval = interval;
     this.position = position;
     this.currentVelocity = velocity;
+    this.lapNo = lapNo;
+    this.distance = 0;
   }
 
   updateRacer(time) {
@@ -22,6 +24,21 @@ export class Racer {
     this.angularVelocity += angularVelocityRad;
     // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
     const angle = this.angularVelocity % (2 * Math.PI);
+    const trackLength = 5000;
+    // const noOfLaps = 3;
+    // const raceLength = noOfLaps * trackLength;
+    const represenativeDistance = trackLength / trackCircumference;
+    const currentDistance = (angle * trackRadius) * represenativeDistance;
+
+    console.log(`previous distance: ${this.distance}`);
+    console.log(`current distance: ${currentDistance}`);
+    console.log(currentDistance - this.distance);
+    if ((currentDistance - this.distance) < (-4992)) {
+      this.lapNo += 1;
+      console.log(this.lapNo);
+    }
+    console.log(currentDistance);
+    this.distance = currentDistance;
 
     // Note that the addition of the radius and (35 + 2) (radius of the car)
     // is used as an offset to center the car on the track assuming the track
