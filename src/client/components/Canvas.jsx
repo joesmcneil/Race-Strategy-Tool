@@ -1,35 +1,54 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Static racer object for testing purposes
-const racer = {
-  velocity: 5,
-  pos: 0,
-  x: 0,
-  y: 0,
-};
+export class Racer {
+  constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position) {
+    this.x = x;
+    this.y = y;
+    this.angularVelocity = angularVelocity;
+    this.velocity = velocity;
+    this.alias = alias;
+    this.racerColour = racerColour;
+    this.racerNumber = racerNumber;
+    this.interval = interval;
+    this.position = position;
+    this.currentVelocity = velocity;
+  }
+
+  updateRacer(time) {
+    const amplitude = randomIntFromInterval(0, 5);
+    const frequency = randomIntFromInterval(0, 1);
+    this.currentVelocity = this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000)));
+    const angularVelocityRad = this.currentVelocity / trackRadius;
+    this.angularVelocity += angularVelocityRad;
+    // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
+    const angle = this.angularVelocity % (2 * Math.PI);
+
+    // Note that the addition of the radius and (35 + 2) (radius of the car)
+    // is used as an offset to center the car on the track assuming the track
+    // is a circle and the center of the circle is at w/2, h/2.. This could be
+    // rectified by adding an offset of the origin of the circle
+    const offset = trackRadius + (35 / 2);
+    this.x = (trackRadius * Math.cos(angle)) + offset;
+    this.y = (trackRadius * Math.sin(angle)) + offset;
+    console.log(angle);
+  }
+
+  drawRacer(ctx, colour) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 35, 0, 2 * Math.PI);
+    ctx.fillStyle = colour;
+    ctx.fill();
+  }
+}
+
+function randomIntFromInterval(min, max) { // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = (props) => {
-  useEffect(() => {
-    if (props.status === true) {
-      console.log(props.racers);
-      const tempArray = [];
-      for (const racer of props.racers) {
-        console.log(racer);
-        tempArray.push({
-          position: 0,
-          alias: racer.racerAlias,
-          timeDelta: 0,
-        });
-        // console.log(props.liveRacerInfo);
-      }
-      props.setRacerInfo(tempArray);
-      // console.log(props.liveRacerInfo);
-    }
-  }, [props.racers, props.status]);
-
   const canvasRef = React.useRef(null);
   const [time, setTime] = React.useState(0);
   const height = 1000;
@@ -45,7 +64,7 @@ const Canvas = (props) => {
     // Track
     ctx.beginPath();
     ctx.arc(500, 500, trackRadius, 0, 2 * Math.PI);
-    ctx.strokeStyle = 'lightgreen';
+    ctx.strokeStyle = 'white';
     ctx.lineWidth = 15;
     ctx.stroke();
 
@@ -57,36 +76,6 @@ const Canvas = (props) => {
     ctx.stroke();
   };
 
-  function updateRacer() {
-    const angularVelocityRad = racer.velocity / trackRadius;
-    racer.pos += angularVelocityRad;
-    // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
-    const angle = racer.pos % (2 * Math.PI);
-
-    // Note that the addition of the radius and (35 + 2) (radius of the car)
-    // is used as an offset to center the car on the track assuming the track
-    // is a circle and the center of the circle is at w/2, h/2.. This could be
-    // rectified by adding an offset of the origin of the circle
-    const offset = trackRadius + (35 / 2);
-    racer.x = (trackRadius * Math.cos(angle)) + offset;
-    racer.y = (trackRadius * Math.sin(angle)) + offset;
-    console.log(angle);
-  }
-
-  function drawRacer(ctx, colour) {
-    ctx.beginPath();
-    ctx.moveTo(canvasRef.current.width / 2, canvasRef.current.height / 2);
-    ctx.lineTo(racer.x, racer.y);
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = colour;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(racer.x, racer.y, 35, 0, 2 * Math.PI);
-    ctx.fillStyle = colour;
-    ctx.fill();
-  }
-
   const draw = ctx => {
     if (props.status === true) {
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -94,8 +83,14 @@ const Canvas = (props) => {
       drawTrack(ctx);
       try {
         for (const racer of props.racers) {
-          updateRacer();
-          drawRacer(ctx, racer.racerColour);
+          // if (racer.alias === 'HAM') {
+          //   racer.velocity = 6;
+          // } else if (racer.alias === 'VER') {
+          //   racer.velocity = 3;
+          // }
+          console.log(racer);
+          racer.updateRacer(time);
+          racer.drawRacer(ctx, racer.racerColour);
         }
       } catch (e) {
         console.error(e);

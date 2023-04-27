@@ -1,5 +1,6 @@
 
 import { useState, useRef } from 'react';
+import { Racer } from './Canvas.jsx';
 
 const ConfigOverlay = (props) => {
   // isOpen determines the state of the overlay, the state is updated once the 'submit' button is clicked and the class of the containing is then updated.
@@ -21,11 +22,7 @@ const ConfigOverlay = (props) => {
   };
 
   const addRacer = () => {
-    const racer = {
-      racerAlias: aliasRef.current.value,
-      racerNumber: numberRef.current.value,
-      racerColour: colourRef.current.value,
-    };
+    const racer = new Racer(0, 0, 0, 3, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0);
     props.setRacerArr([...props.racerArr, racer]);
     clearRacerInputs();
 

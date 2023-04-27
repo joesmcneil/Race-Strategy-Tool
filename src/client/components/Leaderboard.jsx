@@ -6,39 +6,39 @@ const Leaderboard = (props) => {
 
   useEffect(() => {
     if (props.status === true) {
-      console.log(props.dataArr);
+      console.log(props.racers);
       const tempArray = [];
       tempArray.push(
-        <div class="child"> {/** child of outer flexbox in leaderboard component */}
-          <div class="parent"> {/** el row */}
-            <div class="child"> {/** el data */}
+        <div className="child"> {/** child of outer flexbox in leaderboard component */}
+          <div className="parent"> {/** el row */}
+            <div className="child"> {/** el data */}
               Position
             </div>
-            <div class="child">
+            <div className="child">
               Alias
             </div>
-            <div class="child">
+            <div className="child">
               Interval
             </div>
           </div>
         </div>,
       );
 
-      for (const racer of props.dataArr) {
+      for (const racer of props.racers) {
         console.log(racer);
         console.log(leaderboardArr);
         tempArray.push(
             <LeaderboardItem
               alias = {racer.alias}
               position = {racer.position}
-              timeDelta = {racer.timeDelta}
+              timeDelta = {racer.interval}
             />,
         );
         console.log(leaderboardArr);
       }
       setLeaderboardArr(tempArray);
     }
-  }, [props.status, props.dataArr]);
+  }, [props.status, props.racers]);
 
   return (
     <div className="leaderboardParent">
