@@ -13,8 +13,8 @@ function HomePage() {
   return (
     <div className="mainContainer">
         <div className="canvasContainer">
-        </div>
             <Canvas racers={racers} status={status} setRacerInfo={setLiveRacerInfo}/>{/** liveRacerInfo={liveRacerInfo} */}
+        </div>
     <div className="leaderboardContainer">
         <Leaderboard dataArr={liveRacerInfo} status={status}/>
     </div>

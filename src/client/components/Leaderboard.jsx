@@ -18,7 +18,7 @@ const Leaderboard = (props) => {
               Alias
             </div>
             <div class="child">
-              Time Delta
+              Interval
             </div>
           </div>
         </div>,
@@ -41,7 +41,7 @@ const Leaderboard = (props) => {
   }, [props.status, props.dataArr]);
 
   return (
-    <div className="parent">
+    <div className="leaderboardParent">
         {leaderboardArr}
     </div>
   );
