@@ -2,21 +2,25 @@
 import Canvas from '../components/Canvas'
 import ConfigOverlay from '../components/ConfigOverlay'
 import AnimationControls from '../components/AnimationControls'
-import React, { useState } from 'react';
+import Leaderboard from '../components/Leaderboard'
+import { useState } from 'react';
 
 function HomePage() {
+  const [racers, setRacers] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [liveRacerInfo, setLiveRacerInfo] = useState([]);
 
-    const [racers, setRacers] = useState([]);
-    const [showTrack, setShowTrack] = useState(false);
-
-    return (
+  return (
     <div className="mainContainer">
         <div className="canvasContainer">
-            <Canvas racers={racers}/>    
+            <Canvas racers={racers} status={status} setRacerInfo={setLiveRacerInfo}/>{/** liveRacerInfo={liveRacerInfo} */}
         </div>
-        <ConfigOverlay setRacerArr={setRacers} showTrack={setShowTrack}/>
+    <div className="leaderboardContainer">
+        <Leaderboard dataArr={liveRacerInfo} status={status}/>
     </div>
-    )
+        <ConfigOverlay setRacerArr={setRacers} racerArr={racers} setStatus={setStatus}/>
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;

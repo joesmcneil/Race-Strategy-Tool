@@ -1,8 +1,7 @@
 
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
-const ConfigOverlay = ({ setRacerArr }) => {
-
+const ConfigOverlay = (props) => {
   // isOpen determines the state of the overlay, the state is updated once the 'submit' button is clicked and the class of the containing is then updated.
 
   const [isOpen, setIsOpen] = useState(false);
@@ -15,41 +14,32 @@ const ConfigOverlay = ({ setRacerArr }) => {
   const trackLengthRef = useRef();
   const numberOfLapsRef = useRef();
 
-  const [racersArr, setRacersArr] = useState([]);
-
-
-  console.log(racersArr);
-
-  const showTrack = (props) => {
-
-  }
-
   const clearRacerInputs = () => {
     aliasRef.current.value = '';
     numberRef.current.value = '';
     colourRef.current.value = '';
-  }
+  };
 
-  const addRacer = () => 
-  {
+  const addRacer = () => {
     const racer = {
       racerAlias: aliasRef.current.value,
       racerNumber: numberRef.current.value,
-      racerColour: colourRef.current.value
-    }
-    setRacersArr([...racersArr, racer]);
+      racerColour: colourRef.current.value,
+    };
+    props.setRacerArr([...props.racerArr, racer]);
     clearRacerInputs();
 
-    console.log(racersArr);
-  }
+    console.log(props.racerArr);
+  };
 
   const submitConfig = () => {
-    setRacerArr(racersArr);
+    props.setStatus(true);
     setIsOpen(!isOpen);
     console.log(isOpen);
     console.log(trackLengthRef.current.value);
     console.log(numberOfLapsRef.current.value);
-  }
+    console.log(props.racerArr);
+  };
 
   return (
     <div className={`overlay ${isOpen ? 'hide' : ''}`}>
@@ -75,9 +65,7 @@ const ConfigOverlay = ({ setRacerArr }) => {
     </form>
         }
     </div>
-    
   );
-  
 };
 
 export default ConfigOverlay;

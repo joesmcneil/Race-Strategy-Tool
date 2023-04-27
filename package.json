@@ -13,5 +13,16 @@
     "build": "next build",
     "start": "nodemon ./index.js",
     "lint": "next lint"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-portsoc": "^1.0.1"
+  },
+  "eslintConfig": {
+    "extends": "portsoc",
+    "root": true,
+    "env": {
+      "browser": true
+    }
   }
 }

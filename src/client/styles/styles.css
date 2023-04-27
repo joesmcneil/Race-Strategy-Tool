@@ -15,14 +15,48 @@
 
     .canvasContainer {
       display: flex;
-      margin: auto;
-      height: 1000px;
-      width: 1000px;
+      height: 1050px;
+      width: 1050px;
+      margin-left: 400px;
     }
 
     canvas {
       margin: auto;
-      border: 1px solid white;
+    }
+
+    .leaderboardParent {
+      display: flex;
+      flex-direction: column;
+      height: 575px;
+      width: 350px;
+      border: solid 2px;
+      border-color: white;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+
+    .parent {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .child {
+      color: white;
+      font-size: 25px;
+      font-family: Arial, Helvetica, sans-serif;
+      margin-top: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .leaderboardContainer {
+      border: solid 2px;
+      border-color: white;
+      height: 600px;
+      width: 375px;
+      margin-top: 100px;
+      margin-left: 200px;
     }
 
     .overlay {
