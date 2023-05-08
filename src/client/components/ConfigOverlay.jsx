@@ -22,7 +22,7 @@ const ConfigOverlay = (props) => {
   };
 
   const addRacer = () => {
-    const racer = new Racer(0, 0, 0, 3, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0, 1);
+    const racer = new Racer(0, 0, 0, 2, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0, 1);
     props.setRacerArr([...props.racerArr, racer]);
     clearRacerInputs();
 

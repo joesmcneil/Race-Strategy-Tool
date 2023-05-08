@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export class Racer {
   constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position, lapNo) {
@@ -19,7 +19,7 @@ export class Racer {
   updateRacer(time) {
     const amplitude = randomIntFromInterval(0, 5);
     const frequency = randomIntFromInterval(0, 1);
-    this.currentVelocity = this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000)));
+    this.currentVelocity = (this.velocity + amplitude + frequency) + (this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000))));
     const angularVelocityRad = this.currentVelocity / trackRadius;
     this.angularVelocity += angularVelocityRad;
     // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
@@ -66,8 +66,8 @@ const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = (props) => {
-  const canvasRef = React.useRef(null);
-  const [time, setTime] = React.useState(0);
+  const canvasRef = useRef(null);
+  const [time, setTime] = useState(0);
   const height = 1000;
   const width = 1000;
 
