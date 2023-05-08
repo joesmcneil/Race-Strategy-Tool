@@ -8,15 +8,14 @@ import { useState } from 'react';
 function HomePage() {
   const [racers, setRacers] = useState([]);
   const [status, setStatus] = useState(false);
-  const [liveRacerInfo, setLiveRacerInfo] = useState([]);
 
   return (
     <div className="mainContainer">
         <div className="canvasContainer">
-            <Canvas racers={racers} status={status} setRacerInfo={setLiveRacerInfo}/>{/** liveRacerInfo={liveRacerInfo} */}
+            <Canvas racers={racers} status={status}/>{/** liveRacerInfo={liveRacerInfo} */}
         </div>
     <div className="leaderboardContainer">
-        <Leaderboard dataArr={liveRacerInfo} status={status}/>
+        <Leaderboard racers={racers} status={status}/>
     </div>
         <ConfigOverlay setRacerArr={setRacers} racerArr={racers} setStatus={setStatus}/>
     </div>

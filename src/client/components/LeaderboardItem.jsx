@@ -1,14 +1,14 @@
 const LeaderboardItem = (props) => {
   return (
-      <div class="child"> {/** child of outer flexbox in leaderboard component */}
-        <div class="parent"> {/** el row */}
-          <div class="child"> {/** el data */}
+      <div className="child"> {/** child of outer flexbox in leaderboard component */}
+        <div className="parent"> {/** el row */}
+          <div className="child"> {/** el data */}
             {props.position}
           </div>
-          <div class="child">
+          <div className="child">
             {props.alias}
           </div>
-          <div class="child">
+          <div className="child">
             {props.timeDelta}
           </div>
         </div>
