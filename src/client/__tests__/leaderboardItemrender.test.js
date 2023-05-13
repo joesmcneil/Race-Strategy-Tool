@@ -1,7 +1,9 @@
 import LeaderboardItem from "../components/LeaderboardItem";
 import renderer from 'react-test-renderer';
 
-test('test leaderboard item component', () => {
+// Testing the LeaderboardItem component DOM tree is correct after passing it data
+
+it('should match the object supplied', () => {
 
   const props = {
     position: 1,
@@ -31,5 +33,5 @@ test('test leaderboard item component', () => {
       </div>
     </div>
 )
-  expect(renderedComponent.toJSON()).toMatchObject(expectedComponent.toJSON())
+  expect(renderedComponent.toJSON()).toMatchObject(expectedComponent.toJSON());
 })

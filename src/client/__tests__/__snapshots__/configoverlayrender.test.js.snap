@@ -1,9 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing the overlay component render 1`] = `
-<configOverlay
-  racerArr={[]}
-  setRacerArr={[Function]}
-  setStatus={[Function]}
-/>
+exports[`testing the rendering of the overlay component 1`] = `
+<div
+  className="overlay "
+>
+  <form
+    className="raceForm"
+  >
+    <p
+      className="configTitles"
+      id="preRaceConfig"
+    >
+      Pre-race Configuration
+    </p>
+    <p
+      className="configTitles"
+      id="trackConfig"
+    >
+      Track Config
+    </p>
+    <div
+      className="trackDetails"
+    >
+      <input
+        className="inputFormElem"
+        id="trackLength"
+        placeholder="Track Length (KM)"
+        type="text"
+      />
+      <input
+        className="inputFormElem"
+        id="numberOfLaps"
+        placeholder="Number of Laps"
+        type="text"
+      />
+    </div>
+    <div
+      className="racerDetails"
+    >
+      <p
+        className="configTitles"
+      >
+        Racer Config
+      </p>
+      <input
+        className="inputFormElem"
+        id="alias"
+        placeholder="Racer Alias"
+        type="text"
+      />
+      <input
+        className="inputFormElem"
+        id="racerNumber"
+        placeholder="Racer Number"
+        type="text"
+      />
+      <input
+        className="inputFormElem"
+        id="racerColour"
+        placeholder="Racer Colour"
+        type="text"
+      />
+    </div>
+    <div
+      className="configButtons"
+    >
+      <input
+        className="addConfigButton"
+        onClick={[Function]}
+        type="button"
+        value="Add Racer"
+      />
+      <input
+        className="addConfigButton"
+        onClick={[Function]}
+        type="button"
+        value="Submit"
+      />
+    </div>
+  </form>
+</div>
 `;

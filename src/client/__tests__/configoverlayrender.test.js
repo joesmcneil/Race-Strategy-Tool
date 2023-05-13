@@ -1,16 +1,16 @@
 import ConfigOverlay from "../components/ConfigOverlay";
 import renderer from 'react-test-renderer';
-import { useState, useRef } from 'react';
 
-test('testing the overlay component render', () => {
+it('Should render when passed an empty array and the functions it inherits', () => {
 
   const expectedComponent = renderer.create(
-    <configOverlay
+    <ConfigOverlay
       racerArr={[]}
       setRacerArr={() => {}}
       setStatus={() => {}}
       />
-    );
-    const JSON = expectedComponent.toJSON();
-    expect(JSON).toMatchSnapshot();
+    ).toJSON();
+
+    // generates a serialisable snapshot of the component without building the app https://jestjs.io/docs/snapshot-testing
+    expect(expectedComponent).toMatchSnapshot();
   })
