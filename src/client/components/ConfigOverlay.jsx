@@ -22,7 +22,7 @@ const ConfigOverlay = (props) => {
   };
 
   const addRacer = () => {
-    const racer = new Racer(0, 0, 0, 2, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0, 1);
+    const racer = new Racer(0, 0, 0, 0.0000001, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0);
     props.setRacerArr([...props.racerArr, racer]);
     clearRacerInputs();
 
@@ -30,6 +30,18 @@ const ConfigOverlay = (props) => {
   };
 
   const submitConfig = () => {
+    console.log(trackLengthRef.current.value);
+    console.log(numberOfLapsRef.current.value);
+
+    const scale = (parseInt(trackLengthRef.current.value) * 1000) / 3000;
+
+    for (const racer of props.racerArr) {
+      racer.velocity = racer.velocity * (2 * scale);
+      console.log(racer.velocity);
+    }
+
+    props.setTrackLength(parseInt(trackLengthRef.current.value) * 1000);
+    props.setNoLaps(parseInt(numberOfLapsRef.current.value));
     props.setStatus(true);
     setIsOpen(!isOpen);
     console.log(isOpen);

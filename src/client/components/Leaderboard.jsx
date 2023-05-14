@@ -4,9 +4,9 @@ import LeaderboardItem from "./LeaderboardItem";
 const Leaderboard = (props) => {
   const [leaderboardArr, setLeaderboardArr] = useState([]);
 
+
   useEffect(() => {
     if (props.status === true) {
-      console.log(props.racers);
       const tempArray = [];
       tempArray.push(
         <div className="child"> {/** child of outer flexbox in leaderboard component */}
@@ -24,18 +24,15 @@ const Leaderboard = (props) => {
         </div>,
       );
 
-      for (const racer of props.racers) {
-        console.log(racer);
-        console.log(leaderboardArr);
+      props.racers.forEach((racer, i) => {
         tempArray.push(
             <LeaderboardItem
               alias = {racer.alias}
-              position = {racer.position}
+              position = {i + 1}
               timeDelta = {racer.interval}
             />,
         );
-        console.log(leaderboardArr);
-      }
+      });
       setLeaderboardArr(tempArray);
     }
   }, [props.status, props.racers]);

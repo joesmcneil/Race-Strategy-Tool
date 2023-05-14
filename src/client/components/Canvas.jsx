@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 export class Racer {
-  constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position, lapNo) {
+  constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position) {
     this.x = x;
     this.y = y;
     this.angularVelocity = angularVelocity;
@@ -12,32 +12,41 @@ export class Racer {
     this.interval = interval;
     this.position = position;
     this.currentVelocity = velocity;
-    this.lapNo = lapNo;
+    this.lapNo = 0;
     this.distance = 0;
+    this.totalDistance = 0;
+    this.stopped = false;
   }
 
-  updateRacer(time) {
-    const amplitude = randomIntFromInterval(0, 5);
+  updateRacer(time, noOfLaps, trackLength) {
+    const amplitude = randomIntFromInterval(0, 0.0000001);
     const frequency = randomIntFromInterval(0, 1);
     this.currentVelocity = (this.velocity + amplitude + frequency) + (this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000))));
     const angularVelocityRad = this.currentVelocity / trackRadius;
     this.angularVelocity += angularVelocityRad;
     // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
     const angle = this.angularVelocity % (2 * Math.PI);
-    const trackLength = 5000;
-    // const noOfLaps = 3;
-    // const raceLength = noOfLaps * trackLength;
+    const raceLength = noOfLaps * trackLength;
+
     const represenativeDistance = trackLength / trackCircumference;
     const currentDistance = (angle * trackRadius) * represenativeDistance;
 
-    console.log(`previous distance: ${this.distance}`);
-    console.log(`current distance: ${currentDistance}`);
-    console.log(currentDistance - this.distance);
-    if ((currentDistance - this.distance) < (-4992)) {
+    let difference = currentDistance - this.distance;
+
+    if (difference < 0) {
+      difference = trackLength + difference;
       this.lapNo += 1;
-      console.log(this.lapNo);
+      this.distance = currentDistance;
     }
-    console.log(currentDistance);
+
+    this.totalDistance += difference;
+
+    // Stop the race
+    if (this.totalDistance > raceLength) {
+      this.stopped = true;
+      return;
+    }
+
     this.distance = currentDistance;
 
     // Note that the addition of the radius and (35 + 2) (radius of the car)
@@ -47,7 +56,6 @@ export class Racer {
     const offset = trackRadius + (35 / 2);
     this.x = (trackRadius * Math.cos(angle)) + offset;
     this.y = (trackRadius * Math.sin(angle)) + offset;
-    console.log(angle);
   }
 
   drawRacer(ctx, colour) {
@@ -55,6 +63,20 @@ export class Racer {
     ctx.arc(this.x, this.y, 35, 0, 2 * Math.PI);
     ctx.fillStyle = colour;
     ctx.fill();
+  }
+
+  setTimeDelta(racerAhead, time) {
+    // this = current
+    // racerAhead = previous
+
+    const distance = this.totalDistance;
+    const racerAheadDistance = racerAhead.totalDistance;
+    const racerSpeed = (distance / 1000) / time;
+
+    const difference = racerAheadDistance - distance;
+    const delta = ((difference / (racerSpeed * 3600000)) * 1000).toFixed(2); // 3.6 x 10^6
+
+    this.interval = delta;
   }
 }
 
@@ -65,9 +87,38 @@ function randomIntFromInterval(min, max) { // min and max included
 const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const middle = Math.floor(arr.length / 2);
+  const left = arr.slice(0, middle);
+  const right = arr.slice(middle);
+
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+  const result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i].totalDistance >= right[j].totalDistance) {
+      result.push(left[i]);
+      i++;
+    } else {
+      result.push(right[j]);
+      j++;
+    }
+  }
+
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+
 const Canvas = (props) => {
   const canvasRef = useRef(null);
-  const [time, setTime] = useState(0);
   const height = 1000;
   const width = 1000;
 
@@ -100,13 +151,9 @@ const Canvas = (props) => {
       drawTrack(ctx);
       try {
         for (const racer of props.racers) {
-          // if (racer.alias === 'HAM') {
-          //   racer.velocity = 6;
-          // } else if (racer.alias === 'VER') {
-          //   racer.velocity = 3;
-          // }
-          console.log(racer);
-          racer.updateRacer(time);
+          if (racer.stopped !== true) {
+            racer.updateRacer(props.time, props.noLaps, props.trackLength);
+          }
           racer.drawRacer(ctx, racer.racerColour);
         }
       } catch (e) {
@@ -115,10 +162,27 @@ const Canvas = (props) => {
     }
   };
 
+  // Sort the array on every time update by totalDistance in descending order.
+  useEffect(() => {
+    if (props.status === true) {
+      props.setRacers(mergeSort(props.racers));
+
+      props.racers.forEach((racer, i) => {
+        if (racer.stopped !== true) {
+          if (i > 0) {
+            racer.setTimeDelta(props.racers[i - 1], props.time);
+          } else {
+            racer.interval = 0;
+          }
+        }
+      });
+    }
+  }, [props.status, props.time]);
+
   // Redraw the canvas when the time or racers variables are updated
   useEffect(() => {
     setInterval(() => {
-      setTime(time => time + 1);
+      props.setTime(time => time + 1);
     }, timeStep);
   }, []);
 
@@ -127,7 +191,7 @@ const Canvas = (props) => {
     const context = canvas.getContext('2d');
 
     draw(context);
-  }, [time, props.racers]);
+  }, [props.time, props.racers]);
 
   return (
     <canvas ref={canvasRef} height={height} width={width}/>
