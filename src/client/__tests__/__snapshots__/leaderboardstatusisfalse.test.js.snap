@@ -5,3 +5,9 @@ exports[`renders Leaderboard component when status is false 1`] = `
   className="leaderboardParent"
 />
 `;
+
+exports[`should render the Leaderboard component when the status is false 1`] = `
+<div
+  className="leaderboardParent"
+/>
+`;

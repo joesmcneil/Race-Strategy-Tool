@@ -1,7 +1,9 @@
 import ConfigOverlay from "../components/ConfigOverlay";
 import renderer from 'react-test-renderer';
 
-it('Should render when passed an empty array and the functions it inherits', () => {
+// Testing that the config overlay component renders when passed all of it's inherited props
+
+it('should render when passed an empty array and the functions it inherits', () => {
 
   const expectedComponent = renderer.create(
     <ConfigOverlay
