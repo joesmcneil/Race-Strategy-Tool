@@ -1,8 +1,8 @@
 const LeaderboardItem = (props) => {
   return (
-      <div className="child"> {/** child of outer flexbox in leaderboard component */}
-        <div className="parent"> {/** el row */}
-          <div className="child"> {/** el data */}
+      <div className="child">
+        <div className="parent">
+          <div className="child">
             {props.position}
           </div>
           <div className="child">

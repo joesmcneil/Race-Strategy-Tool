@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing the rendering of the leaderboard component 1`] = `
+<configOverlay
+  racerArr={[]}
+  setRacerArr={[Function]}
+  setStatus={[Function]}
+/>
+`;

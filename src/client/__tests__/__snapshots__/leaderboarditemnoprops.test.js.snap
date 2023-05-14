@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render without being passed any props 1`] = `
+<div
+  className="child"
+>
+  <div
+    className="parent"
+  >
+    <div
+      className="child"
+    />
+    <div
+      className="child"
+    />
+    <div
+      className="child"
+    />
+  </div>
+</div>
+`;
