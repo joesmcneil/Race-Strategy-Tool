@@ -19,8 +19,8 @@ export class Racer {
   }
 
   updateRacer(time, noOfLaps, trackLength) {
-    const amplitude = randomIntFromInterval(0, 0.0000001);
-    const frequency = randomIntFromInterval(0, 1);
+    const amplitude = randomInt(0, 0.0000001);
+    const frequency = randomInt(0, 1);
     this.currentVelocity = (this.velocity + amplitude + frequency) + (this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000))));
     const angularVelocityRad = this.currentVelocity / trackRadius;
     this.angularVelocity += angularVelocityRad;
@@ -74,48 +74,22 @@ export class Racer {
     const racerSpeed = (distance / 1000) / time;
 
     const difference = racerAheadDistance - distance;
-    const delta = ((difference / (racerSpeed * 3600000)) * 1000).toFixed(2); // 3.6 x 10^6
+    let delta = ((difference / (racerSpeed * 3600000)) * 1000).toFixed(2); // 3.6 x 10^6
+
+    if (delta < 0) {
+      delta = -delta;
+    }
 
     this.interval = delta;
   }
 }
 
-function randomIntFromInterval(min, max) { // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
+function randomInt(lower, upper) {
+  return Math.floor(Math.random() * (upper - lower + 1) + lower);
 }
 
 const trackCircumference = 3000; // meters
 const trackRadius = trackCircumference / (2 * Math.PI);
-
-function mergeSort(arr) {
-  if (arr.length <= 1) {
-    return arr;
-  }
-
-  const middle = Math.floor(arr.length / 2);
-  const left = arr.slice(0, middle);
-  const right = arr.slice(middle);
-
-  return merge(mergeSort(left), mergeSort(right));
-}
-
-function merge(left, right) {
-  const result = [];
-  let i = 0;
-  let j = 0;
-
-  while (i < left.length && j < right.length) {
-    if (left[i].totalDistance >= right[j].totalDistance) {
-      result.push(left[i]);
-      i++;
-    } else {
-      result.push(right[j]);
-      j++;
-    }
-  }
-
-  return result.concat(left.slice(i)).concat(right.slice(j));
-}
 
 const Canvas = (props) => {
   const canvasRef = useRef(null);
@@ -165,7 +139,14 @@ const Canvas = (props) => {
   // Sort the array on every time update by totalDistance in descending order.
   useEffect(() => {
     if (props.status === true) {
-      props.setRacers(mergeSort(props.racers));
+      // Set tempArray to the current value of props.racers
+      // Check that a.totalDistance is less than b.totalDistance
+      // If so, swap order of both a and b in array
+      // Else, do nothing
+      // Set props.racer to the value of tempArray (post sort)
+      const tempArray = [].concat(props.racers)
+        .sort((a, b) => a.totalDistance < b.totalDistance ? 1 : -1);
+      props.setRacers(tempArray);
 
       props.racers.forEach((racer, i) => {
         if (racer.stopped !== true) {
