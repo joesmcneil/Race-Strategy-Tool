@@ -28,6 +28,7 @@ export class Racer {
     const frequency = randomInt(0, 1);
     // Executing the sine wave
     this.currentVelocity = (this.velocity + amplitude + frequency) + (this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000))));
+    // Working out the velocity of the racer going around a curve
     const angularVelocityRad = this.currentVelocity / trackRadius;
     this.angularVelocity += angularVelocityRad;
     const angle = this.angularVelocity % (2 * Math.PI);

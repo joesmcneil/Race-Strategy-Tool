@@ -1,4 +1,5 @@
 const LeaderboardItem = (props) => {
+  // This component just returns some div elements with some inserted racer props
   return (
       <div className="child">
         <div className="parent">
