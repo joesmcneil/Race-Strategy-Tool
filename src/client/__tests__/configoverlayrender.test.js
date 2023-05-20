@@ -13,6 +13,5 @@ it('should render when passed an empty array and the functions it inherits', () 
       />
     ).toJSON();
 
-    // generates a serialisable snapshot of the component without building the app https://jestjs.io/docs/snapshot-testing
     expect(expectedComponent).toMatchSnapshot();
   })

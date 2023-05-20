@@ -1,7 +1,7 @@
 
 // Initial Maths test
 
-test('2+2=4', () => {
-  const maths = (2 + 2);
-  expect(maths).toEqual(4);
+test('5 + 5 = 10', () => {
+  const maths = (5 + 5);
+  expect(maths).toEqual(10);
 });

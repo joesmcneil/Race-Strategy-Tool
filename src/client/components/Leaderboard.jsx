@@ -4,8 +4,8 @@ import LeaderboardItem from "./LeaderboardItem";
 const Leaderboard = (props) => {
   const [leaderboardArr, setLeaderboardArr] = useState([]);
 
-
   useEffect(() => {
+    // Pushing the html elements of the leaderboard every time props.status or props.racers updates and props.status === true
     if (props.status === true) {
       const tempArray = [];
       tempArray.push(
@@ -24,6 +24,7 @@ const Leaderboard = (props) => {
         </div>,
       );
 
+      // Pushing the leaderboarditem whilst looping through the racers array every time props.status or props.racers updates and props.status === true
       props.racers.forEach((racer, i) => {
         tempArray.push(
             <LeaderboardItem

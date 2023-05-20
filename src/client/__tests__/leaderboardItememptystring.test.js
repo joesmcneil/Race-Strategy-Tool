@@ -1,6 +1,8 @@
 import LeaderboardItem from "../components/LeaderboardItem";
 import renderer from 'react-test-renderer';
 
+// Testing that the object is matched when passed empty strings
+
 it('should match the object supplied when passed empty strings', () => {
 
     const props = {

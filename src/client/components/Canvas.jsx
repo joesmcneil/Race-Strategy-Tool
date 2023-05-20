@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
+// The class that racers can be built upon
+
 export class Racer {
   constructor(x, y, angularVelocity, velocity, alias, racerColour, racerNumber, interval, position) {
     this.x = x;
@@ -18,19 +20,20 @@ export class Racer {
     this.stopped = false;
   }
 
+  // Method to update the racer throughout the simulation
+
   updateRacer(time, noOfLaps, trackLength) {
+    // Amplitutde and frequency of the sine wave
     const amplitude = randomInt(0, 0.0000001);
     const frequency = randomInt(0, 1);
+    // Executing the sine wave
     this.currentVelocity = (this.velocity + amplitude + frequency) + (this.velocity + (amplitude * Math.sin((2 * Math.PI * frequency) * (time / 1000))));
     const angularVelocityRad = this.currentVelocity / trackRadius;
     this.angularVelocity += angularVelocityRad;
-    // const degrees = (racer.pos * 57.2957795130823208767981548141) % trackCircumference;
     const angle = this.angularVelocity % (2 * Math.PI);
     const raceLength = noOfLaps * trackLength;
-
     const represenativeDistance = trackLength / trackCircumference;
     const currentDistance = (angle * trackRadius) * represenativeDistance;
-
     let difference = currentDistance - this.distance;
 
     if (difference < 0) {
@@ -69,6 +72,7 @@ export class Racer {
     // this = current
     // racerAhead = previous
 
+    // Finding the distance of the racer ahead and comparing using speed to determine the time delta, or interval between them
     const distance = this.totalDistance;
     const racerAheadDistance = racerAhead.totalDistance;
     const racerSpeed = (distance / 1000) / time;
