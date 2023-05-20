@@ -1,22 +1,31 @@
 
 import Canvas from '../components/Canvas'
 import ConfigOverlay from '../components/ConfigOverlay'
-import AnimationControls from '../components/AnimationControls'
-import React, { useState } from 'react';
+import Leaderboard from '../components/Leaderboard'
+import LapCounter from '../components/LapCounter'
+import { useState } from 'react';
 
 function HomePage() {
+  const [racers, setRacers] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [trackLength, setTrackLength] = useState(0);
+  const [noLaps, setNoLaps] = useState(1);
+  const [time, setTime] = useState(0);
 
-    const [racers, setRacers] = useState([]);
-    const [showTrack, setShowTrack] = useState(false);
-
-    return (
+  return (
     <div className="mainContainer">
         <div className="canvasContainer">
-            <Canvas racers={racers}/>    
+          <Canvas racers={racers} status={status} setRacers={setRacers} setStatus={setStatus} trackLength={trackLength} noLaps={noLaps} time={time} setTime={setTime}/>{/** liveRacerInfo={liveRacerInfo} */}
         </div>
-        <ConfigOverlay setRacerArr={setRacers} showTrack={setShowTrack}/>
+    <div className="lapCounter">
+        <LapCounter noLaps={noLaps} racers={racers} status={status}/>
     </div>
-    )
+    <div className="leaderboardContainer">
+        <Leaderboard racers={racers} status={status} time={time}/>
+    </div>
+        <ConfigOverlay setRacerArr={setRacers} racerArr={racers} setStatus={setStatus} tracklength={trackLength} setTrackLength={setTrackLength} noLaps={noLaps} setNoLaps={setNoLaps}/>
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;

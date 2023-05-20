@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly with an empty array 1`] = `
+<div
+  className="leaderboardParent"
+/>
+`;
+
+exports[`testing that the leaderboard component renders properly with an empty array 1`] = `
+<div
+  className="leaderboardParent"
+/>
+`;
