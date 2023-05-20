@@ -3,7 +3,7 @@ import Leaderboard from "../components/Leaderboard";
 
 // Testing the leaderboard component by passing it an array of data and a status of true
 
-it('should render properly with an empty array', () => {
+it('should render when passed an array containing data', () => {
     
     const status = true;
     const racers = [
