@@ -2,6 +2,7 @@
 import Canvas from '../components/Canvas'
 import ConfigOverlay from '../components/ConfigOverlay'
 import Leaderboard from '../components/Leaderboard'
+import LapCounter from '../components/LapCounter'
 import { useState } from 'react';
 
 function HomePage() {
@@ -14,8 +15,11 @@ function HomePage() {
   return (
     <div className="mainContainer">
         <div className="canvasContainer">
-            <Canvas racers={racers} status={status} setRacers={setRacers} setStatus={setStatus} trackLength={trackLength} noLaps={noLaps} time={time} setTime={setTime}/>{/** liveRacerInfo={liveRacerInfo} */}
+          <Canvas racers={racers} status={status} setRacers={setRacers} setStatus={setStatus} trackLength={trackLength} noLaps={noLaps} time={time} setTime={setTime}/>{/** liveRacerInfo={liveRacerInfo} */}
         </div>
+    <div className="lapCounter">
+        <LapCounter noLaps={noLaps} racers={racers} status={status}/>
+    </div>
     <div className="leaderboardContainer">
         <Leaderboard racers={racers} status={status} time={time}/>
     </div>
