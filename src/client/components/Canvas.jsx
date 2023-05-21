@@ -89,11 +89,12 @@ export class Racer {
   }
 }
 
+// Function to return a random int between the numbers fed into it, used for amplitude and frequency of sine wave
 function randomInt(lower, upper) {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 }
 
-const trackCircumference = 3000; // meters
+const trackCircumference = 3000; // in meters
 const trackRadius = trackCircumference / (2 * Math.PI);
 
 const Canvas = (props) => {

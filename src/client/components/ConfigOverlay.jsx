@@ -21,6 +21,8 @@ const ConfigOverlay = (props) => {
     colourRef.current.value = '';
   };
 
+  // Adding a racer with the values inserted into the input fields and assigning default values
+
   const addRacer = () => {
     const racer = new Racer(0, 0, 0, 0.0000001, aliasRef.current.value, colourRef.current.value, numberRef.current.value, 0, 0);
     props.setRacerArr([...props.racerArr, racer]);
@@ -32,6 +34,8 @@ const ConfigOverlay = (props) => {
   const submitConfig = () => {
     console.log(trackLengthRef.current.value);
     console.log(numberOfLapsRef.current.value);
+
+    // Scaling the track from the inputted kilometers to meters
 
     const scale = (parseInt(trackLengthRef.current.value) * 1000) / 3000;
 

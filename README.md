@@ -6,7 +6,9 @@ Race-Strategy-App is a web application that simulations a race based on inputs f
 
 ## Setup and startup
 
-To setup
+Run the npm i command to install all necessary packages.
+
+Run npm start to start the web application, which should be accessible on localhost port 8080.
 
 ## Design
 
@@ -44,10 +46,26 @@ The leaderboard utilises some of the data captured within the canvas through the
 
 1. The lack of input validation means that users can mistype colours, or use capitalised letters which results in black circles being displayed on the screen. 
 
-2. The lack of input validation also means users could input really long aliases. In reality, the users should only be able to insert 3 letter aliases.
+2. The lack of input validation also means users could input really long aliases. In reality, the users should only be able to insert 3 letter aliases. It results in a messy leaderboard.
 
-3. The 
+3. The web application appears to use a lot of memory, there could be a memory leak somewhere, this requires further investigation before coming to conclusion.
+
+4. When the race finishes, the leaderboard can change at the end of the race. The racers who finished last tend to appear at the top of the leaderboard at the end, which is incorrect.
+
+5. The web application supports a limited screen size, which means anything outside this is not supported and it does not work as aspected. Compatibility is an issue that has been identified in the future works.
 
 ## Future/unfinished work
 
-## Bibliography
+1. Adding a database to improve the potential of a data-driven web application in future.
+
+2. Adding compatibility for a more screen sizes.
+
+3. Re-writing the race simulation code to ensure a more efficient display of racers on a track.
+
+4. Adding more functionality to manipulate racer speeds more efficiently.
+
+5. Adding input validation within the config overlay.
+
+6. Switching necessary inputs to dropdown menus where approrpriate.
+
+7. Adding cloud-based server hosting
