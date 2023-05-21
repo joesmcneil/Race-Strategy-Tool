@@ -6,9 +6,9 @@ Race-Strategy-App is a web application that simulations a race based on inputs f
 
 ## Setup and startup
 
-Run the npm i command to install all necessary packages.
+Run the `npm i` command to install all necessary packages.
 
-Run npm start to start the web application, which should be accessible on localhost port 8080.
+Run `npm start` to start the web application, which should be accessible on localhost port 8080.
 
 ## Design
 
